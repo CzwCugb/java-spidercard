@@ -1,6 +1,4 @@
 import javax.swing.*;
-
-
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -189,6 +187,7 @@ public class Spider extends JFrame{
     public boolean checkFinish(int col){
         return true;
     }
+
     //5.15:陈志伟 => 设置难度
     public void setDifficulty(int difficulty) {
         this.difficulty = difficulty;

@@ -1,42 +1,45 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Hashtable;
 
 
 public class SpiderGame extends JFrame {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args){
         new SpiderGame();
     }
 
+    //操作区参数
     public static final int REAR_LINE_HEIGHT = 10;
     public static final int FRONT_LINE_HEIGHT = 17;
     public static final int COLUMN_GAP = 95;
     public static final int LEFT = 30;
     public static final int TOP = 30;
 
+    //发牌区参数
     public static final int SENDCARDS_AREA_GAP = 20;
     public static final int SENDCARDS_AREA_TOP = 530;
     public static final int SENDCARDS_AREA_LEFT = 790;
 
+    //回收区参数
     public static final int FINISH_AREA_GAP = 20;
     public static final int FINISH_AREA_TOP = 530;
     public static final int FINISH_AREA_LEFT = 40;
 
+    //游戏参数
     private int finishCount = 0;
     private int sendCardsCol = 0;
+    private boolean animated = true;
+
     private PokerCard[] cards = new PokerCard[104];
     private Hashtable<Point,PokerCard> map = new Hashtable<Point,PokerCard>();
     private Container pane = this.getContentPane();
     private JLabel[] groundLabels = new JLabel[10];
     private JLabel sendCardsClickArea = null;
-    private boolean animated = true;
+
 
     public SpiderGame(){
         setTitle("蜘蛛纸牌");
@@ -50,6 +53,7 @@ public class SpiderGame extends JFrame {
         newGame();
     }
 
+    //功能函数
     public void newGame(){
         initCards();
         randomCards();
@@ -275,6 +279,7 @@ public class SpiderGame extends JFrame {
         turnFrontLastCards();
     }
 
+    //游戏结算
     public void gameSuccess(){
         JOptionPane.showMessageDialog(this,"恭喜你!成功收集了所有卡牌","提示",JOptionPane.INFORMATION_MESSAGE);
     }

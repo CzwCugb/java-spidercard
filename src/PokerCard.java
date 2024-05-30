@@ -142,12 +142,13 @@ public class PokerCard extends JLabel {
         }
     }
 
+    //带动画的移动
     public void moveTo(Point toPoint){
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
 
-                int duration = 150; //总用时
+                int duration = 180; //总用时
                 int delay = 30; // 多少毫秒更新一次位置
                 int steps = duration / delay;
 

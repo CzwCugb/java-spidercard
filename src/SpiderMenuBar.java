@@ -9,6 +9,7 @@ public class SpiderMenuBar extends JMenuBar {
     private JMenuItem newGameItem = new JMenuItem("新游戏");
     private JMenuItem messageItem = new JMenuItem("提示");
     private JMenuItem sendCardsItem = new JMenuItem("发牌");
+    private JMenuItem animatedItem = new JMenuItem("关闭/开启动画");
     private JMenu difficultyMenu = new JMenu("游戏难度");
     private JMenuItem EasyItem = new JMenuItem("单花色");
     private JMenuItem MediumItem = new JMenuItem("双花色");
@@ -20,6 +21,13 @@ public class SpiderMenuBar extends JMenuBar {
     private SpiderGame main;
 
     public SpiderMenuBar(SpiderGame father){
+
+        animatedItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                main.resetAnimated();
+            }
+        });
 
         newGameItem.addActionListener(new ActionListener() {
             @Override
@@ -79,7 +87,7 @@ public class SpiderMenuBar extends JMenuBar {
             }
         });
 
-        gameMenu.add(messageItem);gameMenu.add(newGameItem);gameMenu.add(sendCardsItem);
+        gameMenu.add(messageItem);gameMenu.add(newGameItem);gameMenu.add(sendCardsItem);gameMenu.add(animatedItem);
         difficultyMenu.add(EasyItem);difficultyMenu.add(MediumItem);difficultyMenu.add(HardItem);
         aboutMenu.add(oursItem);aboutMenu.add(helpItem);
 

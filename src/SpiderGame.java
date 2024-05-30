@@ -1,8 +1,11 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Hashtable;
 
 
@@ -33,6 +36,7 @@ public class SpiderGame extends JFrame {
     private Container pane = this.getContentPane();
     private JLabel[] groundLabels = new JLabel[10];
     private JLabel sendCardsClickArea = null;
+    private boolean animated = true;
 
     public SpiderGame(){
         setTitle("蜘蛛纸牌");
@@ -171,7 +175,8 @@ public class SpiderGame extends JFrame {
             }else{
                 toPoint.y += REAR_LINE_HEIGHT;
             }
-            cards[i].setLocation(toPoint);
+            if(animated) cards[i].moveTo(toPoint);
+            else cards[i].setLocation(toPoint);
             cards[i].setInitPoint(toPoint);
             cards[i].turnFront();
             cards[i].setMovable(true);
@@ -256,7 +261,8 @@ public class SpiderGame extends JFrame {
                     map.remove(pi);
                     card.turnRear();
                     card.setMovable(false);
-                    card.setLocation(FINISH_AREA_LEFT + finishCount*FINISH_AREA_GAP,FINISH_AREA_TOP);
+                    if(animated) card.moveTo(new Point(FINISH_AREA_LEFT + finishCount*FINISH_AREA_GAP,FINISH_AREA_TOP));
+                    else card.setLocation(FINISH_AREA_LEFT + finishCount*FINISH_AREA_GAP,FINISH_AREA_TOP);
                     pi = getPreviousPoint(pi);
                 }
                 finishCount++;
@@ -270,7 +276,7 @@ public class SpiderGame extends JFrame {
     }
 
     public void gameSuccess(){
-        JOptionPane.showMessageDialog(this,"恭喜你!通关了","提示",JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this,"恭喜你!成功收集了所有卡牌","提示",JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void removePointFromMap(Point p){
@@ -287,6 +293,11 @@ public class SpiderGame extends JFrame {
 
     public boolean mapContains(Point p ){
         return map.containsKey(p);
+    }
+
+    public void resetAnimated(){
+        if(!animated) animated = true;
+        else animated = false;
     }
 
 }

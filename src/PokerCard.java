@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
@@ -139,4 +141,40 @@ public class PokerCard extends JLabel {
             }
         }
     }
+
+    public void moveTo(Point toPoint){
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+
+                int duration = 150; //总用时
+                int delay = 30; // 多少毫秒更新一次位置
+                int steps = duration / delay;
+
+                double dx = (double) (toPoint.x - me.getX()) / steps;
+                double dy = (double) (toPoint.y - me.getY()) / steps;
+
+                Timer timer = new Timer(delay,null);
+                ActionListener listener = new ActionListener() {
+                    int step = 0; // 当前步数
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (step >= steps) {
+                            // 如果已经移动了指定的步数：
+                            timer.stop();
+                            timer.removeActionListener(this);
+                            me.setLocation(toPoint.x, toPoint.y);
+                        } else {
+                            // 否则
+                            me.setLocation((int) (me.getX() + dx), (int) (me.getY() + dy));
+                            step++;
+                        }
+                    }
+                };
+                timer.addActionListener(listener);
+                timer.start();
+            }
+        });
+    }
+
 }

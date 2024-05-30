@@ -14,7 +14,7 @@ public class SpiderGame extends JFrame {
 
     //操作区参数
     public static final int REAR_LINE_HEIGHT = 10;
-    public static final int FRONT_LINE_HEIGHT = 17;
+    public static final int FRONT_LINE_HEIGHT = 20;
     public static final int COLUMN_GAP = 95;
     public static final int LEFT = 30;
     public static final int TOP = 30;
@@ -219,6 +219,22 @@ public class SpiderGame extends JFrame {
         else return null;
     }
 
+    public void removePointFromMap(Point p){
+        map.remove(p);
+    }
+
+    public void addItemToMap(Point p,PokerCard card){
+        map.put(p,card);
+    }
+
+    public PokerCard getMapValue(Point p){
+        return map.get(p);
+    }
+
+    public boolean mapContains(Point p ){
+        return map.containsKey(p);
+    }
+
     public void turnFrontLastCards(){
         //检查最后一列是不是负面
         for(int i = 0 ; i < 10 ; i ++){
@@ -280,30 +296,15 @@ public class SpiderGame extends JFrame {
         turnFrontLastCards();
     }
 
+    public void resetAnimated(){
+        if(!animated) animated = true;
+        else animated = false;
+    }
+
     //游戏结算
     public void gameSuccess(){
         JOptionPane.showMessageDialog(this,"恭喜你!成功收集了所有卡牌","提示",JOptionPane.INFORMATION_MESSAGE);
     }
 
-    public void removePointFromMap(Point p){
-        map.remove(p);
-    }
-
-    public void addItemToMap(Point p,PokerCard card){
-        map.put(p,card);
-    }
-
-    public PokerCard getMapValue(Point p){
-        return map.get(p);
-    }
-
-    public boolean mapContains(Point p ){
-        return map.containsKey(p);
-    }
-
-    public void resetAnimated(){
-        if(!animated) animated = true;
-        else animated = false;
-    }
 
 }

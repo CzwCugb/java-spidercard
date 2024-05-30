@@ -39,12 +39,20 @@ public class PokerCard extends JLabel {
 
     public void turnFront(){
         front = true;
-        setIcon(new ImageIcon("./images/" + type + "-" + value + ".gif"));
+        ImageIcon icon = new ImageIcon("./images/pixel/" + type + "-" + value + ".gif");
+        Image image = icon.getImage();
+        Image newImg = image.getScaledInstance(70, 100,  java.awt.Image.SCALE_SMOOTH);
+        setIcon(new ImageIcon(newImg));
+        //setIcon(new ImageIcon("./images/pixel/" + type + "-" + value + ".gif"));
     }
 
     public void turnRear(){
         front = false;
-        setIcon(new ImageIcon("./images/rear.gif"));
+        ImageIcon icon = new ImageIcon("./images/pixel/rear.gif");
+        Image image = icon.getImage();
+        Image newImg = image.getScaledInstance(70, 100,  java.awt.Image.SCALE_SMOOTH);
+        setIcon(new ImageIcon(newImg));
+        //setIcon(new ImageIcon("./images/pixel/rear.gif"));
     }
 
     public int getValue(){

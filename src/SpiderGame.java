@@ -34,6 +34,7 @@ public class SpiderGame extends JFrame {
     private int sendCardsCol = 0;
     private boolean animated = true;
 
+
     private PokerCard[] cards = new PokerCard[104];
     private Hashtable<Point,PokerCard> map = new Hashtable<Point,PokerCard>();
     private Container pane = this.getContentPane();
@@ -239,7 +240,7 @@ public class SpiderGame extends JFrame {
             while(p != null && map.containsKey(p)){
                 PokerCard card = map.get(p);
                 PokerCard cardNext = map.get(getNextPoint(p));
-                if(card.getValue() != cardNext.getValue() + 1 || sinceNotMovable){
+                if(card.getValue() != cardNext.getValue() + 1 || !cardNext.getFront() || sinceNotMovable){
                     sinceNotMovable = true;
                     card.setMovable(false);
                 }else{

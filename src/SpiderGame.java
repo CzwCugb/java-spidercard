@@ -33,14 +33,14 @@ public class SpiderGame extends JFrame {
     private int finishCount = 0;
     private int sendCardsCol = 0;
     private boolean animated = true;
-
+    private int score = 500;
 
     private PokerCard[] cards = new PokerCard[104];
     private Hashtable<Point,PokerCard> map = new Hashtable<Point,PokerCard>();
     private Container pane = this.getContentPane();
     private JLabel[] groundLabels = new JLabel[10];
     private JLabel sendCardsClickArea = null;
-
+    private SpiderMenuBar spiderMenuBar = new SpiderMenuBar(this);
 
     public SpiderGame(){
         setTitle("蜘蛛纸牌");
@@ -49,7 +49,7 @@ public class SpiderGame extends JFrame {
         setLayout(null);
         pane.setLayout(null);
         pane.setBackground(new Color(36, 145, 24, 255));
-        setJMenuBar(new SpiderMenuBar(this));
+        setJMenuBar(spiderMenuBar);
         setVisible(true);
         newGame();
     }
@@ -191,6 +191,16 @@ public class SpiderGame extends JFrame {
         sendCardsCol++;
     }
 
+    public void reduceScore(int amount){
+        score-=amount;
+        spiderMenuBar.setScoreLabel(score);
+    }
+
+    public void addScore(int amount){
+        score+=amount;
+        spiderMenuBar.setScoreLabel(score);
+    }
+
     public Point getLastPoint(int col_){
         Point lastP = new Point(LEFT + col_*COLUMN_GAP,TOP);
         while(getNextPoint(lastP) != null) {
@@ -282,10 +292,12 @@ public class SpiderGame extends JFrame {
                     map.remove(pi);
                     card.turnRear();
                     card.setMovable(false);
+
                     if(animated) card.moveTo(new Point(FINISH_AREA_LEFT + finishCount*FINISH_AREA_GAP,FINISH_AREA_TOP));
                     else card.setLocation(FINISH_AREA_LEFT + finishCount*FINISH_AREA_GAP,FINISH_AREA_TOP);
                     pi = getPreviousPoint(pi);
                 }
+                addScore(100);
                 finishCount++;
             }
         }
@@ -297,14 +309,12 @@ public class SpiderGame extends JFrame {
     }
 
     public void resetAnimated(){
-        if(!animated) animated = true;
-        else animated = false;
+        animated = !animated;
     }
 
     //游戏结算
     public void gameSuccess(){
-        JOptionPane.showMessageDialog(this,"恭喜你!成功收集了所有卡牌","提示",JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this,"恭喜你!成功收集了所有卡牌 + \n + 得分 : " + score,"提示",JOptionPane.INFORMATION_MESSAGE);
     }
-
 
 }

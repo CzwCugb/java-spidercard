@@ -107,6 +107,7 @@ public class PokerCard extends JLabel {
                 Point lastP = main.getLastPoint(toCol);
                 if(lastCard == null) lastP.y -= SpiderGame.FRONT_LINE_HEIGHT;
                 Point p = me.initPoint;
+                main.reduceScore(1);
                 while(p != null){
                     PokerCard tempCard = main.getMapValue(p);
                     lastP.y += SpiderGame.FRONT_LINE_HEIGHT;

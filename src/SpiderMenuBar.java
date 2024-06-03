@@ -18,6 +18,7 @@ public class SpiderMenuBar extends JMenuBar {
     private JMenuItem oursItem = new JMenuItem("关于我们");
     private JMenuItem helpItem = new JMenuItem("游戏规则");
     private Font menuFont = new Font("微软雅黑",Font.PLAIN,13);
+    private JLabel scoreLabel = new JLabel("分数: 500");
     private SpiderGame main;
 
     public SpiderMenuBar(SpiderGame father){
@@ -53,7 +54,7 @@ public class SpiderMenuBar extends JMenuBar {
         EasyItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                
             }
         });
 
@@ -87,10 +88,14 @@ public class SpiderMenuBar extends JMenuBar {
             }
         });
 
+
+
+
         gameMenu.add(messageItem);gameMenu.add(newGameItem);gameMenu.add(sendCardsItem);gameMenu.add(animatedItem);
         difficultyMenu.add(EasyItem);difficultyMenu.add(MediumItem);difficultyMenu.add(HardItem);
         aboutMenu.add(oursItem);aboutMenu.add(helpItem);
 
+        scoreLabel.setFont(menuFont);
         gameMenu.setFont(menuFont);
         difficultyMenu.setFont(menuFont);
         aboutMenu.setFont(menuFont);
@@ -98,7 +103,11 @@ public class SpiderMenuBar extends JMenuBar {
         this.add(gameMenu);
         this.add(difficultyMenu);
         this.add(aboutMenu);
+        this.add(scoreLabel);
         this.main = father;
     }
 
+    public void setScoreLabel(int score_){
+        scoreLabel.setText("分数:" + score_);
+    }
 }

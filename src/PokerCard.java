@@ -21,8 +21,11 @@ public class PokerCard extends JLabel {
 
     Border cardPickedBorder = BorderFactory.createBevelBorder(BevelBorder.RAISED,Color.YELLOW,Color.YELLOW);
 
-    public static int CARD_HEIGHT = 100;
-    public static int CARD_WIDTH = 70;
+    public static String CARD_STYLE = "Classic";
+    public static String CARD_STYLE_PATH = "./images/pixel/";
+    public static String CARD_IMAGE_FORMAT = ".gif";
+    public static final int CARD_HEIGHT = 100;
+    public static final int CARD_WIDTH = 70;
 
     public PokerCard(int value_,int type_,SpiderGame main_){
         value = value_;
@@ -39,7 +42,7 @@ public class PokerCard extends JLabel {
 
     public void turnFront(){
         front = true;
-        ImageIcon icon = new ImageIcon("./images/pixel/" + type + "-" + value + ".gif");
+        ImageIcon icon = new ImageIcon(CARD_STYLE_PATH + type + "-" + value + CARD_IMAGE_FORMAT);
         Image image = icon.getImage();
         Image newImg = image.getScaledInstance(70, 100,  java.awt.Image.SCALE_SMOOTH);
         setIcon(new ImageIcon(newImg));
@@ -187,6 +190,20 @@ public class PokerCard extends JLabel {
                 timer.start();
             }
         });
+    }
+
+    //改变皮肤样式
+    public static void setCardStyle(String skinType) {
+        if(skinType.equals("Classic")){
+            CARD_STYLE = skinType;
+            CARD_STYLE_PATH = "./images/pixel/";
+            CARD_IMAGE_FORMAT = ".gif";
+        }
+        else if(skinType.equals("Fantasy")){
+            CARD_STYLE = skinType;
+            CARD_STYLE_PATH = "./images/fantasy/";
+            CARD_IMAGE_FORMAT = ".png";
+        }
     }
 
 }

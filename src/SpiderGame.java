@@ -7,10 +7,6 @@ import java.util.Hashtable;
 
 public class SpiderGame extends JFrame {
 
-    public static void main(String[] args){
-        new SpiderGame();
-    }
-
     //操作区参数
     public static final int REAR_LINE_HEIGHT = 10;
     public static final int FRONT_LINE_HEIGHT = 20;
@@ -41,6 +37,7 @@ public class SpiderGame extends JFrame {
     private JLabel[] groundLabels = new JLabel[10];
     private JLabel sendCardsClickArea = null;
     private SpiderMenuBar spiderMenuBar = new SpiderMenuBar(this);
+    private JLabel backgroundLabel = null;
 
     public SpiderGame(){
         setTitle("蜘蛛纸牌");
@@ -48,7 +45,7 @@ public class SpiderGame extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(null);
         pane.setLayout(null);
-        pane.setBackground(new Color(36, 145, 24, 255));
+        setBackground("Classic");
         setJMenuBar(spiderMenuBar);
         setVisible(true);
         newGame();
@@ -63,6 +60,35 @@ public class SpiderGame extends JFrame {
         initClickArea();
         resetScore();
         sendCards();
+    }
+
+    public void setBackground(String type_){
+        if(type_.equals("Classic")){
+            if(backgroundLabel != null) pane.remove(backgroundLabel);
+            pane.setBackground(new Color(36, 145, 24, 255));
+        }else if(type_.equals("Western")){
+            String backgroundImgPath = "images/western.jpg";
+            if(backgroundLabel != null) pane.remove(backgroundLabel);
+            backgroundLabel = new JLabel();
+            backgroundLabel.setBounds(0, 0, 1000, 700);
+            backgroundLabel.setLayout(null);
+            ImageIcon icon = new ImageIcon(backgroundImgPath);
+            Image image = icon.getImage();
+            Image newImg = image.getScaledInstance(1000, 700,  java.awt.Image.SCALE_SMOOTH);
+            backgroundLabel.setIcon(new ImageIcon(newImg));
+            pane.add(backgroundLabel);
+        }else if(type_.equals("Fantasy")){
+            String backgroundImgPath = "images/fantasy.jpg";
+            if(backgroundLabel != null) pane.remove(backgroundLabel);
+            backgroundLabel = new JLabel();
+            backgroundLabel.setBounds(0, 0, 1000, 700);
+            backgroundLabel.setLayout(null);
+            ImageIcon icon = new ImageIcon(backgroundImgPath);
+            Image image = icon.getImage();
+            Image newImg = image.getScaledInstance(1000, 700,  java.awt.Image.SCALE_SMOOTH);
+            backgroundLabel.setIcon(new ImageIcon(newImg));
+            pane.add(backgroundLabel);
+        }
     }
 
     public void initCards(){

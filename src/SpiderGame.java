@@ -5,7 +5,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Hashtable;
 
-
 public class SpiderGame extends JFrame {
 
     public static void main(String[] args){
@@ -34,7 +33,7 @@ public class SpiderGame extends JFrame {
     private int sendCardsCol = 0;
     private boolean animated = true;
     private int score = 500;
-    public int suitSum = 1;
+    private int suitSum = 1;
 
     private PokerCard[] cards = new PokerCard[104];
     private Hashtable<Point,PokerCard> map = new Hashtable<Point,PokerCard>();
@@ -330,6 +329,25 @@ public class SpiderGame extends JFrame {
 
     public void resetAnimated(){
         animated = !animated;
+        if(!animated){
+            JOptionPane.showMessageDialog(this,"已关闭动画","提示",JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            JOptionPane.showMessageDialog(this,"已开启动画","提示",JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    public void setSuitSum(int suits_){
+        suitSum = suits_;
+        if(suitSum == 1){
+            int opt = JOptionPane.showConfirmDialog(this,"已设置:单花色，是否开启新游戏","提示",JOptionPane.YES_NO_OPTION);
+            if(opt == JOptionPane.YES_OPTION) newGame();
+        }else if(suitSum == 2){
+            int opt = JOptionPane.showConfirmDialog(this,"已设置:双花色，是否开启新游戏","提示",JOptionPane.YES_NO_OPTION);
+            if(opt == JOptionPane.YES_OPTION) newGame();
+        }else{
+            int opt = JOptionPane.showConfirmDialog(this,"已设置:四花色，是否开启新游戏","提示",JOptionPane.YES_NO_OPTION);
+            if(opt == JOptionPane.YES_OPTION) newGame();
+        }
     }
 
     //游戏结算

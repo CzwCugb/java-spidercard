@@ -8,9 +8,9 @@
 
 ​	----提示 undone
 
-​	----单双花色 undone
+​	----单双花色 done
 
-​	----分数结算 undone
+​	----分数结算 done
 
 ​	----开始页面 undone
 

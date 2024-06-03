@@ -78,6 +78,9 @@ public class SpiderMenuBar extends JMenuBar {
             @Override
             public void actionPerformed(ActionEvent e) {
                 main.sendCards();
+                main.turnFrontLastCards();
+                main.resetCardsMovable();
+                main.checkColumnsFinished();
             }
         });
 

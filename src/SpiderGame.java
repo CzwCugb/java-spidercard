@@ -352,7 +352,11 @@ public class SpiderGame extends JFrame {
 
     //游戏结算
     public void gameSuccess(){
-        JOptionPane.showMessageDialog(this,"恭喜你!成功收集了所有卡牌 + \n + 得分 : " + score,"提示",JOptionPane.INFORMATION_MESSAGE);
+        String msg = "恭喜你!成功收集了所有卡牌" + "\n" + "得分 : " + score + "\n" + "是否开始新游戏？";
+        int opt = JOptionPane.showConfirmDialog(this,msg,"提示",JOptionPane.YES_NO_OPTION);
+        if(opt == JOptionPane.YES_OPTION){
+            newGame();
+        }
     }
 
 }

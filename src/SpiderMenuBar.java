@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class SpiderMenuBar extends JMenuBar {
 
@@ -22,6 +24,20 @@ public class SpiderMenuBar extends JMenuBar {
     private SpiderGame main;
 
     public SpiderMenuBar(SpiderGame father){
+
+        this.main = father;
+        main.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if(e.getKeyChar() == 'n'){
+                    main.newGame();
+                }else if(e.getKeyChar() == 's'){
+                    main.sendCards();
+                }else if(e.getKeyChar() == 'a'){
+                    main.resetAnimated();
+                }
+            }
+        });
 
         animatedItem.addActionListener(new ActionListener() {
             @Override
@@ -77,21 +93,22 @@ public class SpiderMenuBar extends JMenuBar {
         oursItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(main,"中国地质大学（北京）面向对象课程设计实践作业 ---- Java版蜘蛛纸牌\n"
-                 +"团队成员: 陈志伟、周子豪、张宝仁、朱利康");
+                JOptionPane.showMessageDialog(main,"中国地质大学（北京）面向对象课程设计实践作业:Java版蜘蛛纸牌\n"
+                 +"团队成员: 陈志伟 周子豪 张宝仁 朱利康");
             }
         });
         //TODO 游戏规则
         helpItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(main,"基本蜘蛛纸牌需要 104 张牌（两套扑克牌）。\n" +
-                        "游戏的目标是将牌按降序排列（从 K 到 A）形成完整的一行，并将牌从桌子上移走。\n" +
-                        "发牌：游戏开始时，发牌为十行，每行有一定数量的牌。有些牌面朝上，其余的牌面朝下。\n" +
-                        "移动卡牌：打开的卡牌可以移动到另一列中排名更高一级的卡牌。例如，卡 8 可以移动到卡 9。\n" +
-                        "行的完成和移除：一旦形成完整的行，按照从 K 到 A 的顺序，该行将从游戏中移除。\n" +
-                        "抽新牌：如果通过移动一张牌或删除一行来停止移动，则可以抽剩余的牌。这创造了新的运动可能性。\n" +
-                        "获胜条件：如果所有牌都正确排序并从桌子上移走，您就获胜。");
+                JOptionPane.showMessageDialog(main,"蜘蛛纸牌总计需要 104 张牌（两套扑克牌）。\n" +
+                        "游戏的目标是将所有牌按降序排列（从 K 到 A）形成完整的一行，并收集到牌堆中。\n" +
+                        "开端————游戏开始时，共有10列牌，每列有一定数量的牌，牌面朝下；开始时，发一次牌\n" +
+                        "移动卡牌————列尾的卡牌序列可以移动到另一列更高一级的牌上。例如，牌6、7、8 可以移动到 牌9。\n" +
+                        "行的完成和移除————一旦形成完整的一组，（从 K 到 A ），这些牌将被移动到左下角牌堆。\n" +
+                        "发牌————在游戏中，除了移动卡牌和收集卡牌，还可以抽剩余的牌，均分到每一列；有空列时不能发牌。\n" +
+                        "获胜条件————如果所有牌都正确排序并被成功收集，您就获胜。\n" +
+                        "快捷键————a -- 设置动画效果；n -- 新游戏；s -- 发牌");
             }
         });
 
@@ -108,7 +125,6 @@ public class SpiderMenuBar extends JMenuBar {
         this.add(difficultyMenu);
         this.add(aboutMenu);
         this.add(scoreLabel);
-        this.main = father;
     }
 
     public void setScoreLabel(int score_){

@@ -54,14 +54,14 @@ public class SpiderMenuBar extends JMenuBar {
         EasyItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                main.suitSum=1;
             }
         });
 
         MediumItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                main.suitSum=2;
 
             }
         });
@@ -69,7 +69,7 @@ public class SpiderMenuBar extends JMenuBar {
         HardItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                main.suitSum=4;
             }
         });
 

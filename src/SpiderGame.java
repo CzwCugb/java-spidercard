@@ -34,6 +34,7 @@ public class SpiderGame extends JFrame {
     private int sendCardsCol = 0;
     private boolean animated = true;
     private int score = 500;
+    public int suitSum = 1;
 
     private PokerCard[] cards = new PokerCard[104];
     private Hashtable<Point,PokerCard> map = new Hashtable<Point,PokerCard>();
@@ -61,6 +62,7 @@ public class SpiderGame extends JFrame {
         initGroundArea();
         initCardsLocation();
         initClickArea();
+        resetScore();
         sendCards();
     }
 
@@ -68,9 +70,25 @@ public class SpiderGame extends JFrame {
         sendCardsCol = 0;
         finishCount = 0;
         map.clear();
+        int[] col=new int[4];
+        boolean[] f=new boolean[4];
+        for(int i=0;i<4;i++){
+            int t=(int)(Math.random()*4);
+            while(f[t]) {
+                t = (int) (Math.random() * 4);
+            }
+            if(!f[t]) {
+                col[i] = t;
+                f[t]=true;
+            }
+        }
+        int k=0;
         for(int i = 0 ; i < 104 ; i ++){
             int value_ = i%13 + 1;
-            int type_ = 1;
+            int type_ = 1+col[k];
+            if(i%13==0 && i!=0){
+                k=(k+1)%suitSum;
+            }
             if(cards[i] != null) pane.remove(cards[i]);
             cards[i] = new PokerCard(value_,type_,this);
         }
@@ -191,13 +209,13 @@ public class SpiderGame extends JFrame {
         sendCardsCol++;
     }
 
-    public void reduceScore(int amount){
-        score-=amount;
+    public void setScore(int amount){
+        score = score + amount;
         spiderMenuBar.setScoreLabel(score);
     }
 
-    public void addScore(int amount){
-        score+=amount;
+    public void resetScore(){
+        score = 500;
         spiderMenuBar.setScoreLabel(score);
     }
 
@@ -262,11 +280,12 @@ public class SpiderGame extends JFrame {
         for(int i = 0 ; i < 10 ; i ++){
             Point p = getLastPoint(i);
             p = getPreviousPoint(p);
+
             boolean sinceNotMovable = false;
             while(p != null && map.containsKey(p)){
                 PokerCard card = map.get(p);
                 PokerCard cardNext = map.get(getNextPoint(p));
-                if(card.getValue() != cardNext.getValue() + 1 || !cardNext.getFront() || sinceNotMovable){
+                if(card.getValue() != cardNext.getValue() + 1 || !cardNext.getFront() || sinceNotMovable|| card.getType()!=cardNext.getType() ){
                     sinceNotMovable = true;
                     card.setMovable(false);
                 }else{
@@ -281,7 +300,9 @@ public class SpiderGame extends JFrame {
         for(int i = 0 ; i < 10 ; i ++){
             int valueCount = 1;
             Point p = getLastPoint(i);
-            while(p != null && map.containsKey(p) && map.get(p).getValue() == valueCount){
+            Point p0 = getFirstPoint(0);
+            int ty=map.get(p0).getType();
+            while(p != null && map.containsKey(p) && map.get(p).getValue() == valueCount && map.get(p).getType()==ty ){
                 p = getPreviousPoint(p);
                 valueCount++;
             }
@@ -292,12 +313,11 @@ public class SpiderGame extends JFrame {
                     map.remove(pi);
                     card.turnRear();
                     card.setMovable(false);
-
                     if(animated) card.moveTo(new Point(FINISH_AREA_LEFT + finishCount*FINISH_AREA_GAP,FINISH_AREA_TOP));
                     else card.setLocation(FINISH_AREA_LEFT + finishCount*FINISH_AREA_GAP,FINISH_AREA_TOP);
                     pi = getPreviousPoint(pi);
                 }
-                addScore(100);
+                setScore(100);
                 finishCount++;
             }
         }

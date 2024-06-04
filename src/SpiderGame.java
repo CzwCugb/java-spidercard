@@ -54,7 +54,7 @@ public class SpiderGame extends JFrame {
     //功能函数
     public void newGame(){
         initCards();
-        //randomCards();
+        randomCards();
         initGroundArea();
         initCardsLocation();
         initClickArea();

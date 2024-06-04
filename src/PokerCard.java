@@ -58,6 +58,15 @@ public class PokerCard extends JLabel {
         //setIcon(new ImageIcon("./images/pixel/rear.gif"));
     }
 
+    public void turnWhite(){
+        front = false;
+        ImageIcon icon = new ImageIcon("./images/pixel/white.gif");
+        Image image = icon.getImage();
+        Image newImg = image.getScaledInstance(70, 100,  java.awt.Image.SCALE_SMOOTH);
+        setIcon(new ImageIcon(newImg));
+        //setIcon(new ImageIcon("./images/pixel/white.gif"));
+    }
+
     public int getValue(){
         return value;
     }

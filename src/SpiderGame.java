@@ -1,6 +1,8 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Hashtable;
@@ -25,8 +27,8 @@ public class SpiderGame extends JFrame {
     public static final int FINISH_AREA_LEFT = 40;
 
     //游戏参数
+    public static int sendCardsCol = 0;
     private int finishCount = 0;
-    private int sendCardsCol = 0;
     private boolean animated = true;
     private int score = 500;
     private int suitSum = 1;
@@ -157,6 +159,9 @@ public class SpiderGame extends JFrame {
             for(int j = 0 ; j < 10 ; j ++){
                 cards[idx].setLocation(bottom_left,bottom_top);
                 cards[idx].setInitPoint(new Point(bottom_left,bottom_top));
+                //............
+                if(j == 9) map.put(new Point(bottom_left,bottom_top),cards[idx]);
+                //............
                 idx++;
             }
         }
@@ -229,6 +234,8 @@ public class SpiderGame extends JFrame {
             cards[i].turnFront();
             cards[i].setMovable(true);
             pane.setComponentZOrder(cards[i],0);
+
+            if(map.contains(cards[i])) map.remove(cards[i]);
             map.put(toPoint,cards[i]);
         }
         sendCardsCol++;
@@ -325,8 +332,8 @@ public class SpiderGame extends JFrame {
         for(int i = 0 ; i < 10 ; i ++){
             int valueCount = 1;
             Point p = getLastPoint(i);
-            Point p0 = getFirstPoint(i);
-            while(p != null && p0 != null && map.containsKey(p) && map.get(p).getValue() == valueCount && map.get(p).getType()== map.get(p0).getType() ){
+            Point plast = getLastPoint(i);
+            while(p != null && plast != null && map.containsKey(p) && map.get(p).getValue() == valueCount && map.get(p).getType()== map.get(plast).getType() ){
                 p = getPreviousPoint(p);
                 valueCount++;
             }

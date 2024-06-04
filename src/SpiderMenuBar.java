@@ -6,7 +6,7 @@ public class SpiderMenuBar extends JMenuBar {
 
     private JMenu gameMenu = new JMenu("游戏");
     private JMenuItem newGameItem = new JMenuItem("新游戏");
-    private JMenuItem messageItem = new JMenuItem("提示");
+    private JMenuItem hintItem = new JMenuItem("提示");
     private JMenuItem sendCardsItem = new JMenuItem("发牌");
     private JMenuItem animatedItem = new JMenuItem("关闭/开启动画");
     private JMenu difficultyMenu = new JMenu("游戏难度");
@@ -49,6 +49,8 @@ public class SpiderMenuBar extends JMenuBar {
                     main.resetAnimated();
                 }else if(e.getKeyChar() == 'h'){
                     helpItem.doClick();
+                }else if(e.getKeyChar() == 'q'){
+                    hintItem.doClick();
                 }
             }
         });
@@ -67,10 +69,10 @@ public class SpiderMenuBar extends JMenuBar {
             }
         });
 
-        messageItem.addActionListener(new ActionListener() {
+        hintItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                new HintThread(main).start();
             }
         });
 
@@ -166,7 +168,7 @@ public class SpiderMenuBar extends JMenuBar {
             }
         });
 
-        gameMenu.add(messageItem);gameMenu.add(newGameItem);gameMenu.add(sendCardsItem);gameMenu.add(animatedItem);
+        gameMenu.add(hintItem);gameMenu.add(newGameItem);gameMenu.add(sendCardsItem);gameMenu.add(animatedItem);
         difficultyMenu.add(easyItem);difficultyMenu.add(mediumItem);difficultyMenu.add(hardItem);
         aboutMenu.add(oursItem);aboutMenu.add(helpItem);
         styleMenu.add(classicItem);styleMenu.add(westernItem);styleMenu.add(fantasyItem);

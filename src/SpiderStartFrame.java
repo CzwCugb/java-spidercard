@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 
 public class SpiderStartFrame extends JFrame {
 
+    //页面组件
     private JLabel backgroundLabel = new JLabel();
     private Font butFont = new Font("微软雅黑",Font.PLAIN,20);
     private String backgroundImgPath = "./images/deck.jpg";
@@ -14,10 +15,12 @@ public class SpiderStartFrame extends JFrame {
     private JButton ruleButton = new JButton("游戏规则");
     private JButton exitButton = new JButton("退出游戏");
 
+    //游戏开始
     public static void main(String[] args){
         new SpiderStartFrame();
     }
 
+    //构造函数
     public SpiderStartFrame(){
         //界面基本参数设置
         setTitle("欢迎来到蜘蛛纸牌！");

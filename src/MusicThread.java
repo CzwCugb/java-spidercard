@@ -8,6 +8,7 @@ import java.io.IOException;
 
 public class MusicThread extends Thread {
 
+    //自身参数
     private String filePath = null;
     public static String sendCardsMusicPath = "music/sendCards.wav";
     public static String moveCardsMusicPath = "music/moveCards.wav";
@@ -16,6 +17,7 @@ public class MusicThread extends Thread {
         filePath = filePath_;
     }
 
+    //重写run，实现音效播放
     @Override
     public void run() {
         try {

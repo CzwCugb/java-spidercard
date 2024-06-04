@@ -10,6 +10,7 @@ import javax.swing.border.Border;
 
 public class PokerCard extends JLabel {
 
+    //卡牌自身属性
     private int value;
     private int type;
     private Point initPoint = null;
@@ -18,15 +19,16 @@ public class PokerCard extends JLabel {
     private SpiderGame main = null;
     private Container pane = null;
     private PokerCard me = this;
+    private Border cardPickedBorder = BorderFactory.createBevelBorder(BevelBorder.RAISED,Color.YELLOW,Color.YELLOW);
 
-    Border cardPickedBorder = BorderFactory.createBevelBorder(BevelBorder.RAISED,Color.YELLOW,Color.YELLOW);
-
+    //可调节参数
     public static String CARD_STYLE = "Classic";
     public static String CARD_STYLE_PATH = "./images/pixel/";
     public static String CARD_IMAGE_FORMAT = ".gif";
     public static final int CARD_HEIGHT = 100;
     public static final int CARD_WIDTH = 70;
 
+    //构造函数
     public PokerCard(int value_,int type_,SpiderGame main_){
         value = value_;
         type = type_;
@@ -40,6 +42,7 @@ public class PokerCard extends JLabel {
         addMouseListener(new PokerCardMouseListener());
     }
 
+    //朝上
     public void turnFront(){
         front = true;
         ImageIcon icon = new ImageIcon(CARD_STYLE_PATH + type + "-" + value + CARD_IMAGE_FORMAT);
@@ -49,6 +52,7 @@ public class PokerCard extends JLabel {
         //setIcon(new ImageIcon("./images/pixel/" + type + "-" + value + ".gif"));
     }
 
+    //朝下
     public void turnRear(){
         front = false;
         ImageIcon icon = new ImageIcon("./images/pixel/rear.gif");
@@ -58,6 +62,7 @@ public class PokerCard extends JLabel {
         //setIcon(new ImageIcon("./images/pixel/rear.gif"));
     }
 
+    //闪烁
     public void turnWhite(){
         front = false;
         ImageIcon icon = new ImageIcon("./images/pixel/white.gif");
@@ -67,6 +72,7 @@ public class PokerCard extends JLabel {
         //setIcon(new ImageIcon("./images/pixel/white.gif"));
     }
 
+    //外部接口函数
     public int getValue(){
         return value;
     }
@@ -87,6 +93,7 @@ public class PokerCard extends JLabel {
         initPoint = initPoint_;
     }
 
+    //卡牌鼠标事件监听
     private class PokerCardMouseListener extends MouseAdapter{
 
         @Override

@@ -4,6 +4,7 @@ import java.awt.event.*;
 
 public class SpiderMenuBar extends JMenuBar {
 
+    //菜单组件
     private JMenu gameMenu = new JMenu("游戏");
     private JMenuItem newGameItem = new JMenuItem("新游戏");
     private JMenuItem hintItem = new JMenuItem("提示");
@@ -24,6 +25,7 @@ public class SpiderMenuBar extends JMenuBar {
     private JLabel scoreLabel = new JLabel("分数: 500");
     private SpiderGame main;
 
+    //构造函数
     public SpiderMenuBar(SpiderGame father){
 
         //设置Dialog字体
@@ -37,6 +39,7 @@ public class SpiderMenuBar extends JMenuBar {
             }
         }
 
+        //快捷键设置
         this.main = father;
         main.addKeyListener(new KeyAdapter() {
             @Override
@@ -55,6 +58,7 @@ public class SpiderMenuBar extends JMenuBar {
             }
         });
 
+        //设置菜单栏事件监听
         animatedItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -107,7 +111,6 @@ public class SpiderMenuBar extends JMenuBar {
             }
         });
 
-        //关于我们
         oursItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -117,7 +120,6 @@ public class SpiderMenuBar extends JMenuBar {
             }
         });
 
-        //游戏规则
         helpItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -128,7 +130,7 @@ public class SpiderMenuBar extends JMenuBar {
                         "行的完成和移除————一旦形成完整的一组，（从 K 到 A ），这些牌将被移动到左下角牌堆。\n" +
                         "发牌————在游戏中，除了移动卡牌和收集卡牌，还可以抽剩余的牌，均分到每一列；有空列时不能发牌。\n" +
                         "获胜条件————如果所有牌都正确排序并被成功收集，您就获胜。\n" +
-                        "快捷键————a -- 设置动画效果；n -- 新游戏；s -- 发牌；h -- 帮助");
+                        "快捷键————a -- 设置动画效果；n -- 新游戏；s -- 发牌；h -- 帮助；q -- 提示");
             }
         });
 

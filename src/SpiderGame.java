@@ -1,8 +1,6 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Hashtable;
@@ -59,11 +57,12 @@ public class SpiderGame extends JFrame {
         randomCards();
         initGroundArea();
         initCardsLocation();
-        initClickArea();
+        initSendCardsArea();
         resetScore();
         sendCards();
     }
 
+    //设置背景
     public void setBackground(String type_){
         if(type_.equals("Classic")){
             if(backgroundLabel != null) pane.remove(backgroundLabel);
@@ -93,6 +92,7 @@ public class SpiderGame extends JFrame {
         }
     }
 
+    //初始化卡牌
     public void initCards(){
         sendCardsCol = 0;
         finishCount = 0;
@@ -167,6 +167,7 @@ public class SpiderGame extends JFrame {
         }
     }
 
+    //初始化牌列底部
     public void initGroundArea(){
         Border dashedBorder = BorderFactory.createDashedBorder(Color.black, 1,3,1,false);
         for(int i = 0 ; i < 10 ; i ++){
@@ -179,7 +180,8 @@ public class SpiderGame extends JFrame {
         }
     }
 
-    public void initClickArea(){
+    //初始化发牌区
+    public void initSendCardsArea(){
         if(sendCardsClickArea != null) pane.remove(sendCardsClickArea);
         sendCardsClickArea = new JLabel();
         pane.add(sendCardsClickArea,0);
@@ -206,6 +208,7 @@ public class SpiderGame extends JFrame {
 
     }
 
+    //发牌
     public void sendCards(){
         if(sendCardsCol >= 6) {
             JOptionPane.showMessageDialog(pane,"现在无牌可发","提示",JOptionPane.INFORMATION_MESSAGE);
@@ -241,60 +244,7 @@ public class SpiderGame extends JFrame {
         sendCardsCol++;
     }
 
-    public void setScore(int amount){
-        score = score + amount;
-        spiderMenuBar.setScoreLabel(score);
-    }
-
-    public void resetScore(){
-        score = 500;
-        spiderMenuBar.setScoreLabel(score);
-    }
-
-    public Point getLastPoint(int col_){
-        Point lastP = new Point(LEFT + col_*COLUMN_GAP,TOP);
-        while(getNextPoint(lastP) != null) {
-            lastP = getNextPoint(lastP);
-        }
-        return lastP;
-    }
-
-    public Point getFirstPoint(int col_){
-        return new Point(LEFT + col_*COLUMN_GAP,TOP);
-    }
-
-    public Point getNextPoint(Point p){
-        Point p1 = new Point(p.x,p.y + FRONT_LINE_HEIGHT);
-        Point p2 = new Point(p.x,p.y + REAR_LINE_HEIGHT);
-        if(map.containsKey(p1)) return p1;
-        else if(map.containsKey(p2)) return p2;
-        else return null;
-    }
-
-    public Point getPreviousPoint(Point p){
-        Point p1 = new Point(p.x,p.y - FRONT_LINE_HEIGHT);
-        Point p2 = new Point(p.x,p.y - REAR_LINE_HEIGHT);
-        if(map.containsKey(p1)) return p1;
-        else if(map.containsKey(p2)) return p2;
-        else return null;
-    }
-
-    public void removePointFromMap(Point p){
-        map.remove(p);
-    }
-
-    public void addItemToMap(Point p,PokerCard card){
-        map.put(p,card);
-    }
-
-    public PokerCard getMapValue(Point p){
-        return map.get(p);
-    }
-
-    public boolean mapContains(Point p ){
-        return map.containsKey(p);
-    }
-
+    //列尾的牌应朝上
     public void turnFrontLastCards(){
         //检查最后一列是不是负面
         for(int i = 0 ; i < 10 ; i ++){
@@ -307,7 +257,7 @@ public class SpiderGame extends JFrame {
             }
         }
     }
-
+    //重置牌的可移动性
     public void resetCardsMovable(){
         for(int i = 0 ; i < 10 ; i ++){
             Point p = getLastPoint(i);
@@ -327,7 +277,7 @@ public class SpiderGame extends JFrame {
             }
         }
     }
-
+    //检查是否完成并收牌
     public void checkColumnsFinished(){
         for(int i = 0 ; i < 10 ; i ++){
             int valueCount = 1;
@@ -359,6 +309,18 @@ public class SpiderGame extends JFrame {
         turnFrontLastCards();
     }
 
+    //设置分数
+    public void setScore(int amount){
+        score = score + amount;
+        spiderMenuBar.setScoreLabel(score);
+    }
+
+    public void resetScore(){
+        score = 500;
+        spiderMenuBar.setScoreLabel(score);
+    }
+
+    //设置动画
     public void resetAnimated(){
         animated = !animated;
         if(!animated){
@@ -368,6 +330,7 @@ public class SpiderGame extends JFrame {
         }
     }
 
+    //设置花色
     public void setSuitSum(int suits_){
         suitSum = suits_;
         if(suitSum == 1){
@@ -389,6 +352,52 @@ public class SpiderGame extends JFrame {
         if(opt == JOptionPane.YES_OPTION){
             newGame();
         }
+    }
+
+    //得到关键牌的位置
+    public Point getLastPoint(int col_){
+        Point lastP = new Point(LEFT + col_*COLUMN_GAP,TOP);
+        while(getNextPoint(lastP) != null) {
+            lastP = getNextPoint(lastP);
+        }
+        return lastP;
+    }
+
+    public Point getFirstPoint(int col_){
+        return new Point(LEFT + col_*COLUMN_GAP,TOP);
+    }
+
+    public Point getNextPoint(Point p){
+        Point p1 = new Point(p.x,p.y + FRONT_LINE_HEIGHT);
+        Point p2 = new Point(p.x,p.y + REAR_LINE_HEIGHT);
+        if(map.containsKey(p1)) return p1;
+        else if(map.containsKey(p2)) return p2;
+        else return null;
+    }
+
+    public Point getPreviousPoint(Point p){
+        Point p1 = new Point(p.x,p.y - FRONT_LINE_HEIGHT);
+        Point p2 = new Point(p.x,p.y - REAR_LINE_HEIGHT);
+        if(map.containsKey(p1)) return p1;
+        else if(map.containsKey(p2)) return p2;
+        else return null;
+    }
+
+    //哈希表外部接口函数
+    public void removePointFromMap(Point p){
+        map.remove(p);
+    }
+
+    public void addItemToMap(Point p,PokerCard card){
+        map.put(p,card);
+    }
+
+    public PokerCard getMapValue(Point p){
+        return map.get(p);
+    }
+
+    public boolean mapContains(Point p ){
+        return map.containsKey(p);
     }
 
 }

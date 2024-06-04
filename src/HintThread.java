@@ -5,14 +5,17 @@ import java.awt.event.ActionListener;
 
 public class HintThread extends Thread{
 
+    //自身参数
     private SpiderGame main = null;
     private final int delayMillis = 300;
     private final int highlightCount = 3;
 
+    //构造函数
     public HintThread(SpiderGame father){
         main = father;
     }
 
+    //重现run，实现提示
     @Override
     public void run(){
         boolean isCheckOver = false;
@@ -70,6 +73,7 @@ public class HintThread extends Thread{
         }
     }
 
+    //高亮发牌区卡牌
     public void highlightSendCards(final Point p){
         SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -91,6 +95,7 @@ public class HintThread extends Thread{
         });
     }
 
+    //高亮操作区卡牌
     public void highlight(final Point p1, final Point p2) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override

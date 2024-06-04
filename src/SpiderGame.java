@@ -54,7 +54,7 @@ public class SpiderGame extends JFrame {
     //功能函数
     public void newGame(){
         initCards();
-        randomCards();
+        //randomCards();
         initGroundArea();
         initCardsLocation();
         initClickArea();
@@ -325,9 +325,8 @@ public class SpiderGame extends JFrame {
         for(int i = 0 ; i < 10 ; i ++){
             int valueCount = 1;
             Point p = getLastPoint(i);
-            Point p0 = getFirstPoint(0);
-            int ty=map.get(p0).getType();
-            while(p != null && map.containsKey(p) && map.get(p).getValue() == valueCount && map.get(p).getType()==ty ){
+            Point p0 = getFirstPoint(i);
+            while(p != null && p0 != null && map.containsKey(p) && map.get(p).getValue() == valueCount && map.get(p).getType()== map.get(p0).getType() ){
                 p = getPreviousPoint(p);
                 valueCount++;
             }
